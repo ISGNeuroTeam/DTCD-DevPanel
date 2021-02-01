@@ -1,12 +1,12 @@
 <template>
   <div class="switcher">
     <div
-      v-if="tabsList.length <= 0"
+      v-if="tabList.length <= 0"
       class="tab empty-list"
       v-text="'Нет вкладок'"
     />
     <div
-      v-for="tab in tabsList"
+      v-for="tab in tabList"
       class="tab"
       :key="tab.id"
       :title="tab.title"
@@ -22,7 +22,7 @@
 export default {
   name: 'TabSwitcher',
   props: {
-    tabsList: {
+    tabList: {
       type: Array,
       required: true,
       default: () => ([]),

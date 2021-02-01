@@ -1,7 +1,7 @@
 <template>
   <div class="viewer">
     <transition
-      v-for="tab in tabsList"
+      v-for="tab in tabList"
       :key="tab.id"
       name="fade"
       mode="out-in"
@@ -17,7 +17,7 @@
 export default {
   name: 'TabViewer',
   props: {
-    tabsList: {
+    tabList: {
       type: Array,
       required: true,
       default: () => ([]),

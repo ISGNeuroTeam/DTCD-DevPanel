@@ -2,14 +2,14 @@
   <div class="content">
     <PanelSettings
       :isOpen="isSettingsOpen"
-      :tabsList="tabsList"
+      :tabList="tabList"
       @add-tab="addTab"
-      @remove-tab="removeTab"
+      @remove-tab="(id) => $emit('remove-tab', id)"
     />
     <PanelTabsArea
-      :tabsList="tabsList"
+      :tabList="tabList"
       :selectedTab="selectedTab"
-      @select-tab="selectTab"
+      @select-tab="(id) => $emit('select-tab', id)"
     />
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     PanelTabsArea,
   },
   props: {
-    tabsList: {
+    tabList: {
       type: Array,
       required: true,
       default: () => ([]),
@@ -40,16 +40,8 @@ export default {
     },
   },
   methods: {
-    addTab (name) {
-      this.$emit('add-tab', name);
-    },
-
-    removeTab (id) {
-      this.$emit('remove-tab', id);
-    },
-
-    selectTab (id) {
-      this.$emit('select-tab', id);
+    addTab (...args) {
+      this.$emit('add-tab', ...args);
     },
   },
 };

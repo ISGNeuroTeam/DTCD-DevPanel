@@ -3,9 +3,9 @@
     <CategoryTitle :titleText="categoryName"/>
     <div class="content">
       <div class="current-tabs">
-        <select name="" id="" v-model="currentDeleteTab">
+        <select v-model="currentDeleteTab">
           <option
-            v-for="tab in tabsList"
+            v-for="tab in tabList"
             :key="tab.id"
             :value="tab.id"
             v-text="tab.title"
@@ -18,17 +18,17 @@
         />
       </div>
       <div class="available-tabs">
-        <select name="" id="" v-model="currentAddedTab">
+        <select v-model="currentAddedTab">
           <option
-            v-for="tab in availableTabsList"
-            :key="tab.name"
-            :value="tab.name"
+            v-for="(tab, index) in availableTabsList"
+            :key="index"
+            :value="tab"
             v-text="tab.title"
           />
         </select>
         <button
           :disabled="currentAddedTab === null"
-          @click="$emit('add-tab', currentAddedTab)"
+          @click="addTab"
           v-text="'Добавить'"
         />
       </div>
@@ -47,7 +47,7 @@ export default {
       type: String,
       required: true,
     },
-    tabsList: {
+    tabList: {
       type: Array,
       required: true,
       default: () => ([]),
@@ -56,10 +56,17 @@ export default {
   data: () => ({
     currentAddedTab: null,
     currentDeleteTab: null,
-    availableTabsList: document._DataCAD.plugins.filter(
-      plugin => plugin.type === 'devPanelTab',
-    ).map(({ name, title }) => ({ name, title })),
+    availableTabsList: [],
   }),
+  mounted () {
+    this.availableTabsList = this.$root.getExtensionList();
+  },
+  methods: {
+    addTab () {
+      const { name, title } = this.currentAddedTab;
+      this.$emit('add-tab', name, title);
+    },
+  },
 };
 </script>
 

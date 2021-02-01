@@ -32,10 +32,10 @@
           <component
             :is="selectedCategory.component"
             :key="selectedCategory.id"
-            :tabsList="tabsList"
+            :tabList="tabList"
             :categoryName="selectedCategory.name"
             @add-tab="addTab"
-            @remove-tab="removeTab"
+            @remove-tab="(id) => $emit('remove-tab', id)"
           />
         </transition>
       </div>
@@ -56,7 +56,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    tabsList: {
+    tabList: {
       type: Array,
       required: true,
       default: () => ([]),
@@ -80,12 +80,8 @@ export default {
     this.selectedCategory = this.settingsCategories[0];
   },
   methods: {
-    addTab (name) {
-      this.$emit('add-tab', name);
-    },
-
-    removeTab (id) {
-      this.$emit('remove-tab', id);
+    addTab (...args) {
+      this.$emit('add-tab', ...args);
     },
   },
 };
