@@ -1,12 +1,12 @@
 <template>
   <div class="tab-area">
     <TabSwitcher
-      :tabsList="tabsList"
+      :tabList="tabList"
       :selectedTab="selectedTab"
-      @select-tab="selectTab"
+      @select-tab="(id) => $emit('select-tab', id)"
     />
     <TabViewer
-      :tabsList="tabsList"
+      :tabList="tabList"
       :selectedTab="selectedTab"
     />
   </div>
@@ -23,7 +23,7 @@ export default {
     TabViewer,
   },
   props: {
-    tabsList: {
+    tabList: {
       type: Array,
       required: true,
       default: () => ([]),
@@ -31,11 +31,6 @@ export default {
     selectedTab: {
       type: String,
       required: true,
-    },
-  },
-  methods: {
-    selectTab (tabID) {
-      this.$emit('select-tab', tabID);
     },
   },
 };

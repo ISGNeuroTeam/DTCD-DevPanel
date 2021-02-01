@@ -1,12 +1,12 @@
 <template>
   <div :id="panelID" class="panel">
     <PanelHeader
-      :titleText="title"
+      :titleText="panelTitle"
       :isSettingsOpen="isSettingsOpen"
       @toggle-settings="isSettingsOpen = !isSettingsOpen"
     />
     <PanelContent
-      :tabsList="tabsList"
+      :tabList="tabList"
       :selectedTab="selectedTab"
       :isSettingsOpen="isSettingsOpen"
       @add-tab="addTab"
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import pluginRegistrationMeta from './pluginRegistrationMeta';
 import PanelHeader from './components/PanelHeader';
 import PanelContent from './components/PanelContent';
 
@@ -27,45 +26,27 @@ export default {
     PanelHeader,
     PanelContent,
   },
-  data: () => ({
-    title: pluginRegistrationMeta.title,
-    panelID: null,
+  data: (self) => ({
+    panelID: self.$root.panelID,
+    panelTitle: self.$root.panelTitle,
     isSettingsOpen: false,
-    tabsList: [],
+    tabList: [],
+    tabCounter: 1,
     selectedTab: '',
-    plugins: document._DataCAD.plugins,
-    systemGUID: document._DataCAD.systemGUID.guids.guid1,
   }),
-  mounted () {
-    this.panelID = `devPanel-${this.$root.workPlaceID}`;
-  },
   methods: {
-    async addTab (tabName) {
-      const { title, pluginClass } = this.findTabPluginByName(tabName);
+    addTab (tabName, tabTitle) {
+      const id = `tab${this.tabCounter++}`;
+      const domID = `${this.panelID}_${id}`;
+      const title = tabTitle ? tabTitle : 'Вкладка';
 
-      const id = this.generateTabGUID();
-      const domID = `${this.panelID}_tab-${id}`;
-      const selector = `#${domID}`;
+      this.tabList.push({ id, domID, title });
 
-      await this.addTabDataToTabList({ id, domID, title });
+      Promise.resolve().then(() => {
+        this.$root.installExtesion(tabName, `#${domID}`);
+      });
+
       this.selectTab(id);
-
-      this.systemGUID.setGUID(new pluginClass(
-        selector, domID, this.$root.VueJS, this.$eventsSystem, this.$storageSystem,
-      ), id);
-    },
-
-    findTabPluginByName (name) {
-      return this.plugins.find(plugin => plugin.name === name);
-    },
-
-    generateTabGUID () {
-      return this.systemGUID.createGUID();
-    },
-
-    addTabDataToTabList ({ id, domID, title }) {
-      this.tabsList.push({ id, domID, title });
-      return Promise.resolve();
     },
 
     selectTab (tabID) {
@@ -73,9 +54,8 @@ export default {
     },
 
     removeTab (tabID) {
-      const tabIndex = this.tabsList.findIndex(tab => tab.id === tabID);
-      this.tabsList.splice(tabIndex, 1);
-      this.systemGUID.removeGUID(tabID);
+      const tabIndex = this.tabList.findIndex(tab => tab.id === tabID);
+      if (tabIndex >= 0) this.tabList.splice(tabIndex, 1);
     },
   },
 };
