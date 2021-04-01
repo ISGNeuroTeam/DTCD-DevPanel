@@ -1,15 +1,15 @@
 <template>
   <div class="header">
     <div class="title">
-      <span class="text" v-text="titleText"/>
+      <span class="text" v-text="titleText" />
     </div>
     <div class="settings-toggle" @click="$emit('toggle-settings')">
       <transition name="fade" mode="out-in">
         <div v-if="isSettingsOpen" key="close">
-          <i class="fas fa-times icon close"/>
+          <i class="fas fa-times icon close" />
         </div>
         <div v-else key="open">
-          <i class="fas fa-cog icon"/>
+          <i class="fas fa-cog icon" />
         </div>
       </transition>
     </div>
@@ -30,7 +30,7 @@ export default {
     },
   },
   computed: {
-    isOpen () {
+    isOpen() {
       return !!this.isSettingsOpen;
     },
   },
@@ -38,15 +38,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/base';
+@import './../styles/base';
 
 $icon-width: 56px;
 
 .header {
   display: flex;
   flex: 0 0 48px;
-  background-color: #F5F5F5;
-  border-bottom: thin solid rgba(0, 0, 0, .25);
+  background-color: #f5f5f5;
+  border-bottom: thin solid rgba(0, 0, 0, 0.25);
 
   .title {
     display: flex;
@@ -70,15 +70,15 @@ $icon-width: 56px;
     align-items: center;
     flex: 0 0 $icon-width;
     cursor: pointer;
-    border-left: thin solid rgba(0, 0, 0, .25);
+    border-left: thin solid rgba(0, 0, 0, 0.25);
 
     &:hover {
       .icon {
-        color: #2196F3;
+        color: #2196f3;
         transform: rotate(90deg);
 
         &.close {
-          color: #F44336;
+          color: #f44336;
         }
       }
     }
@@ -86,7 +86,7 @@ $icon-width: 56px;
     .icon {
       color: #757575;
       font-size: 20px;
-      transition: .3s;
+      transition: 0.3s;
     }
   }
 }

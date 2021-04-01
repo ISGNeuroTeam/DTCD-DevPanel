@@ -1,13 +1,8 @@
 <template>
   <div class="viewer">
-    <transition
-      v-for="tab in tabList"
-      :key="tab.id"
-      name="fade"
-      mode="out-in"
-    >
+    <transition v-for="tab in tabList" :key="tab.id" name="fade" mode="out-in">
       <div v-show="tab.id === selectedTab" class="tab-template">
-        <div :id="tab.domID" v-text="tab.domID"/>
+        <div :id="tab.domID" v-text="tab.domID" />
       </div>
     </transition>
   </div>
@@ -20,7 +15,7 @@ export default {
     tabList: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
     },
     selectedTab: {
       type: String,
@@ -31,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/base';
+@import './../../styles/base';
 
 .viewer {
   flex-grow: 1;

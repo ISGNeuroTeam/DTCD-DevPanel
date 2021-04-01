@@ -3,17 +3,13 @@
     <div class="settings">
       <div class="menu" :class="collapsedClass">
         <div class="header">
-          <span
-            class="title"
-            :class="collapsedClass"
-            v-text="'Категории'"
-          />
+          <span class="title" :class="collapsedClass" v-text="'Категории'" />
           <div
             class="menu-resizer icon-wrap"
             :class="collapsedClass"
             @click="isMenuCollapsed = !isMenuCollapsed"
           >
-            <i class="fas fa-arrow-left"/>
+            <i class="fas fa-arrow-left" />
           </div>
         </div>
         <div
@@ -23,8 +19,8 @@
           :class="{ selected: category.id === selectedCategory.id }"
           @click="selectedCategory = category"
         >
-          <div class="icon-wrap"><i :class="category.icon"/></div>
-          <div class="title" v-text="category.name"/>
+          <div class="icon-wrap"><i :class="category.icon" /></div>
+          <div class="title" v-text="category.name" />
         </div>
       </div>
       <div class="content">
@@ -35,7 +31,7 @@
             :tabList="tabList"
             :categoryName="selectedCategory.name"
             @add-tab="addTab"
-            @remove-tab="(id) => $emit('remove-tab', id)"
+            @remove-tab="id => $emit('remove-tab', id)"
           />
         </transition>
       </div>
@@ -44,9 +40,9 @@
 </template>
 
 <script>
-import categoriesList from './categories/categoriesList';
-import CommonCategory from './categories/CommonCategory';
-import TabsCategory from './categories/TabsCategory';
+import categoriesList from '@/components/Settings/categories/categoriesList';
+import CommonCategory from '@/components/Settings/categories/CommonCategory.vue';
+import TabsCategory from '@/components/Settings/categories/TabsCategory.vue';
 
 export default {
   name: 'PanelSettings',
@@ -59,11 +55,11 @@ export default {
     tabList: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
     },
     availableTabsList: {
       type: Array,
-      default: () => ([]),
+      default: () => [],
     },
   },
   data: () => ({
@@ -72,15 +68,15 @@ export default {
     isMenuCollapsed: false,
   }),
   computed: {
-    collapsedClass () {
+    collapsedClass() {
       return { collapsed: this.isMenuCollapsed };
     },
   },
-  mounted () {
+  mounted() {
     this.selectedCategory = this.settingsCategories[0];
   },
   methods: {
-    addTab (...args) {
+    addTab(...args) {
       this.$emit('add-tab', ...args);
     },
   },
@@ -88,11 +84,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/base';
+@import './../../styles/base.scss';
 
 $icon-width: 56px;
-$border: thin solid rgba(0, 0, 0, .25);
-$border-light: thin solid rgba(0, 0, 0, .05);
+$border: thin solid rgba(0, 0, 0, 0.25);
+$border-light: thin solid rgba(0, 0, 0, 0.05);
 
 .settings {
   display: flex;
@@ -105,10 +101,10 @@ $border-light: thin solid rgba(0, 0, 0, .05);
 
   .menu {
     flex: 0 0 225px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
     border-right: $border;
     overflow: hidden;
-    transition: flex-basis .3s;
+    transition: flex-basis 0.3s;
 
     &.collapsed {
       flex-basis: $icon-width;
@@ -127,7 +123,7 @@ $border-light: thin solid rgba(0, 0, 0, .05);
       justify-content: space-between;
       align-items: center;
       height: 48px;
-      color:#757575;
+      color: #757575;
       border-bottom: $border-light;
 
       .title {
@@ -139,7 +135,7 @@ $border-light: thin solid rgba(0, 0, 0, .05);
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        transition: .3s;
+        transition: 0.3s;
 
         &.collapsed {
           padding-left: 0;
@@ -149,14 +145,14 @@ $border-light: thin solid rgba(0, 0, 0, .05);
 
       .menu-resizer {
         cursor: pointer;
-        transition: .3s;
+        transition: 0.3s;
 
         &.collapsed {
           transform: rotate(180deg);
         }
 
         &:hover {
-          color:#009688;
+          color: #009688;
         }
       }
     }
@@ -166,20 +162,20 @@ $border-light: thin solid rgba(0, 0, 0, .05);
       align-items: center;
       height: 48px;
       cursor: pointer;
-      color:#757575;
-      transition: .3s;
+      color: #757575;
+      transition: 0.3s;
 
       &:last-child {
         border-bottom: $border-light;
       }
 
       &:hover {
-        background-color: #E0E0E0;
+        background-color: #e0e0e0;
       }
 
       &.selected {
-        color:#009688;
-        background-color: #E0F2F1;
+        color: #009688;
+        background-color: #e0f2f1;
       }
 
       .title {

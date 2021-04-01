@@ -1,11 +1,11 @@
 <template>
   <div>
-    <CategoryTitle :titleText="categoryName"/>
+    <CategoryTitle :titleText="categoryName" />
   </div>
 </template>
 
 <script>
-import CategoryTitle from './CategoryTitle';
+import CategoryTitle from '@/components/Settings/categories/CategoryTitle.vue';
 
 export default {
   name: 'CommonCategory',
@@ -19,6 +19,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
