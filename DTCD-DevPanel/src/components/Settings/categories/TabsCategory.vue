@@ -1,15 +1,10 @@
 <template>
   <div class="container">
-    <CategoryTitle :titleText="categoryName"/>
+    <CategoryTitle :titleText="categoryName" />
     <div class="content">
       <div class="current-tabs">
         <select v-model="currentDeleteTab">
-          <option
-            v-for="tab in tabList"
-            :key="tab.id"
-            :value="tab.id"
-            v-text="tab.title"
-          />
+          <option v-for="tab in tabList" :key="tab.id" :value="tab.id" v-text="tab.title" />
         </select>
         <button
           :disabled="currentDeleteTab === null"
@@ -26,18 +21,14 @@
             v-text="tab.title"
           />
         </select>
-        <button
-          :disabled="currentAddedTab === null"
-          @click="addTab"
-          v-text="'Добавить'"
-        />
+        <button :disabled="currentAddedTab === null" @click="addTab" v-text="'Добавить'" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import CategoryTitle from './CategoryTitle';
+import CategoryTitle from '@/components/Settings/categories/CategoryTitle.vue';
 
 export default {
   name: 'TabsCategory',
@@ -50,7 +41,7 @@ export default {
     tabList: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
     },
   },
   data: () => ({
@@ -58,11 +49,11 @@ export default {
     currentDeleteTab: null,
     availableTabsList: [],
   }),
-  mounted () {
+  mounted() {
     this.availableTabsList = this.$root.getExtensionList();
   },
   methods: {
-    addTab () {
+    addTab() {
       const { name, title } = this.currentAddedTab;
       this.$emit('add-tab', name, title);
     },
@@ -71,6 +62,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import './../../../styles/base.scss';
 .container {
   flex-grow: 1;
   display: flex;

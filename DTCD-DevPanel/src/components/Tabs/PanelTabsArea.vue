@@ -3,18 +3,15 @@
     <TabSwitcher
       :tabList="tabList"
       :selectedTab="selectedTab"
-      @select-tab="(id) => $emit('select-tab', id)"
+      @select-tab="id => $emit('select-tab', id)"
     />
-    <TabViewer
-      :tabList="tabList"
-      :selectedTab="selectedTab"
-    />
+    <TabViewer :tabList="tabList" :selectedTab="selectedTab" />
   </div>
 </template>
 
 <script>
-import TabSwitcher from './TabSwitcher';
-import TabViewer from './TabViewer';
+import TabSwitcher from '@/components/Tabs/TabSwitcher.vue';
+import TabViewer from '@/components/Tabs/TabViewer.vue';
 
 export default {
   name: 'PanelTabsArea',
@@ -26,7 +23,7 @@ export default {
     tabList: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
     },
     selectedTab: {
       type: String,
@@ -37,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/base';
+@import './../../styles/base';
 
 .tab-area {
   display: flex;

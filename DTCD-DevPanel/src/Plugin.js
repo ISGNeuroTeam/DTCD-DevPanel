@@ -1,14 +1,13 @@
-import { PanelPlugin } from './../../../DTCD-SDK';
+import { PanelPlugin } from './../../DTCD-SDK';
 import pluginMeta from './Plugin.Meta';
-import DevPanel from './DevPanel';
+import DevPanel from './DevPanel.vue';
 
 export class Plugin extends PanelPlugin {
-
-  static getRegistrationMeta () {
+  static getRegistrationMeta() {
     return pluginMeta;
   }
 
-  constructor (guid, selector) {
+  constructor(guid, selector) {
     super();
 
     const VueJS = this.getDependence('Vue');
@@ -21,8 +20,7 @@ export class Plugin extends PanelPlugin {
 
     new VueJS.default({
       data: () => data,
-      render: (h) => h(DevPanel),
+      render: h => h(DevPanel),
     }).$mount(selector);
   }
-
 }

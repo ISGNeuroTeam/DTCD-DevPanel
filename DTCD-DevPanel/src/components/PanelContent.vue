@@ -4,19 +4,19 @@
       :isOpen="isSettingsOpen"
       :tabList="tabList"
       @add-tab="addTab"
-      @remove-tab="(id) => $emit('remove-tab', id)"
+      @remove-tab="id => $emit('remove-tab', id)"
     />
     <PanelTabsArea
       :tabList="tabList"
       :selectedTab="selectedTab"
-      @select-tab="(id) => $emit('select-tab', id)"
+      @select-tab="id => $emit('select-tab', id)"
     />
   </div>
 </template>
 
 <script>
-import PanelSettings from './Settings/PanelSettings';
-import PanelTabsArea from './Tabs/PanelTabsArea';
+import PanelSettings from '@/components/Settings/PanelSettings.vue';
+import PanelTabsArea from '@/components/Tabs/PanelTabsArea.vue';
 
 export default {
   name: 'PanelContent',
@@ -28,7 +28,7 @@ export default {
     tabList: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
     },
     selectedTab: {
       type: String,
@@ -40,7 +40,7 @@ export default {
     },
   },
   methods: {
-    addTab (...args) {
+    addTab(...args) {
       this.$emit('add-tab', ...args);
     },
   },
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/base';
+@import './../styles/base';
 
 .content {
   display: flex;

@@ -1,10 +1,6 @@
 <template>
   <div class="switcher">
-    <div
-      v-if="tabList.length <= 0"
-      class="tab empty-list"
-      v-text="'Нет вкладок'"
-    />
+    <div v-if="tabList.length <= 0" class="tab empty-list" v-text="'Нет вкладок'" />
     <div
       v-for="tab in tabList"
       class="tab"
@@ -13,7 +9,7 @@
       :class="{ selected: tab.id === selectedTab }"
       @click="$emit('select-tab', tab.id)"
     >
-      <div class="title" v-text="tab.title"/>
+      <div class="title" v-text="tab.title" />
     </div>
   </div>
 </template>
@@ -25,7 +21,7 @@ export default {
     tabList: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
     },
     selectedTab: {
       type: String,
@@ -36,16 +32,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/base';
+@import './../../styles/base';
 
 $icon-width: 56px;
-$default-tab-bg: #F5F5F5;
-$border: thin solid rgba(0, 0, 0, .25);
+$default-tab-bg: #f5f5f5;
+$border: thin solid rgba(0, 0, 0, 0.25);
 
 .switcher {
   flex-basis: 42px;
   display: flex;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 
   .tab {
     display: flex;
@@ -59,10 +55,10 @@ $border: thin solid rgba(0, 0, 0, .25);
     cursor: pointer;
     color: #757575;
     font-weight: 300;
-    transition: .3s;
+    transition: 0.3s;
 
     &:hover {
-      background-color:#EEEEEE;
+      background-color: #eeeeee;
     }
 
     &:not(:last-child) {
@@ -79,7 +75,7 @@ $border: thin solid rgba(0, 0, 0, .25);
 
     &.selected {
       flex-basis: $icon-width * 2;
-      background-color:  #E0F2F1;
+      background-color: #e0f2f1;
       color: #009688;
     }
 
