@@ -14,7 +14,7 @@ export class Plugin extends PanelPlugin {
     const data = {
       panelID: `${pluginMeta.name}-${guid}`,
       panelTitle: pluginMeta.title,
-      installExtesion: (...args) => this.installPlugin(...args),
+      installExtesion: (...args) => this.installExtension(pluginMeta.name, ...args),
       getExtensionList: () => this.getExtensions(pluginMeta.name),
     };
 
